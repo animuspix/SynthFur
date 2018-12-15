@@ -1,0 +1,84 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SynthFur">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <Color x:Key="SynthFurGreen">
+                <!-- Formatted as double-digit ARGB -->
+                #FF84C682
+            </Color>
+            <Color x:Key="SynthFurGreenDark">
+                <!-- Formatted as double-digit ARGB -->
+                #FF405941
+            </Color>
+            <Color x:Key="SynthFurGreenMid">
+                <!-- Formatted as double-digit ARGB -->
+                #FF5D865C
+            </Color>
+            <Color x:Key="SynthFurLiGreenMid">
+                <!-- Formatted as double-digit ARGB -->
+                #FFCEDACE
+            </Color>
+            <Color x:Key="SynthFurSettingUI">
+                <!-- Formatted as double-digit ARGB -->
+                #FF00CC6A
+            </Color>
+            <AcrylicBrush x:Key="SynthFurClearAcrylic"
+                          BackgroundSource="HostBackdrop"
+                          TintColor="{ StaticResource SynthFurGreen }"
+                          TintOpacity="0.2"
+                          FallbackColor="{ StaticResource SynthFurGreen }">
+            </AcrylicBrush>
+            <AcrylicBrush x:Key="SynthFurFrostAcrylic"
+                          BackgroundSource="Backdrop"
+                          TintColor="{StaticResource SynthFurGreen}"
+                          TintOpacity="0.2"
+                          FallbackColor="{ StaticResource SynthFurGreen }">
+            </AcrylicBrush>
+            <SolidColorBrush x:Key="SynthFurSolid"
+                             Color="{StaticResource SynthFurGreen}">
+            </SolidColorBrush>
+            <SolidColorBrush x:Key="SynthFurSolidDark"
+                             Color="{StaticResource SynthFurGreenDark}">
+            </SolidColorBrush>
+            <SolidColorBrush x:Key="SynthFurTabs"
+                             Color="{StaticResource SynthFurGreenMid}">
+            </SolidColorBrush>
+            <SolidColorBrush x:Key="SynthFurButtons"
+                             Color="{StaticResource SynthFurLiGreenMid}">
+            </SolidColorBrush>
+            <!--Radio button style overrides-->
+            <SolidColorBrush x:Key="RadioButtonForeground"
+                             Color="{StaticResource SynthFurGreenMid}">
+            </SolidColorBrush>
+            <SolidColorBrush x:Key="RadioButtonOuterEllipseStroke"
+                             Color="{StaticResource SynthFurGreenMid}">
+            </SolidColorBrush>
+            <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedStroke"
+                             Color="{StaticResource SynthFurGreenMid}">
+            </SolidColorBrush>
+            <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedStrokePointerOver"
+                             Color="{StaticResource SynthFurGreenMid}">
+            </SolidColorBrush>
+            <!--Checkbox style overrides-->
+            <SolidColorBrush x:Key="CheckBoxForegroundUnchecked"
+                             Color="{StaticResource SynthFurGreenMid}">
+            </SolidColorBrush>
+            <SolidColorBrush x:Key="CheckBoxForegroundChecked"
+                             Color="{StaticResource SynthFurGreenMid}">
+            </SolidColorBrush>
+            <SolidColorBrush x:Key="CheckBoxCheckGlyphForegroundChecked"
+                             Color="{StaticResource SynthFurGreenMid}">
+            </SolidColorBrush>
+            <SolidColorBrush x:Key="CheckBoxCheckBackgroundStrokeUnchecked"
+                             Color="{StaticResource SynthFurGreenMid}">
+            </SolidColorBrush>
+            <!--Slider style overrides-->
+            <SolidColorBrush x:Key="SliderThumbBackground"
+                             Color="{StaticResource SynthFurGreenMid}"></SolidColorBrush>
+            <SolidColorBrush x:Key="SliderThumbBackgroundPressed"
+                             Color="{StaticResource SynthFurGreenDark}"></SolidColorBrush>
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

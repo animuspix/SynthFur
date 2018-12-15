@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>48e19075-f9b3-4eff-a593-23b5ef68c7c1</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>1beedb77-ec8d-47c3-8ad1-639d840b9e35</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
+    </Filter>
+    <Filter Include="Third Party/DirectXMesh">
+      <UniqueIdentifier>{a791d0a2-f172-4520-8c56-b7ff0f9e0f73}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="App.xaml.cpp" />
+    <ClCompile Include="MainPage.xaml.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="RasterShader.cpp" />
+    <ClCompile Include="SynthFurDXPanel.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="App.xaml.h" />
+    <ClInclude Include="MainPage.xaml.h" />
+    <ClInclude Include="Typedefs.h" />
+    <ClInclude Include="..\Third party\DirectXMesh-master\DirectXMesh-master\Utilities\WaveFrontReader.h" />
+    <ClInclude Include="ComputeShader.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="RasterShader.h" />
+    <ClInclude Include="SimSettings.h" />
+    <ClInclude Include="SynthFurDXPanel.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\LockScreenLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\MediumIco.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\TabIco.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\NewFileIco.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\OpenFileIco.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SynthFur_TemporaryKey.pfx" />
+    <None Include="SharedShading.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainPage.xaml" />
+    <Page Include="Theming.xaml" />
+    <Page Include="Templates.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="TuringTexSim.hlsl" />
+    <FxCompile Include="MeshPresentVts.hlsl" />
+    <FxCompile Include="MeshPresentPxls.hlsl" />
+  </ItemGroup>
+</Project>
