@@ -79,6 +79,110 @@
                              Color="{StaticResource SynthFurGreenMid}"></SolidColorBrush>
             <SolidColorBrush x:Key="SliderThumbBackgroundPressed"
                              Color="{StaticResource SynthFurGreenDark}"></SolidColorBrush>
+            <!--System-button style template-->
+            <ControlTemplate x:Key="SystemButton" TargetType="Button">
+                <Grid x:Name="SysButtonGrid"
+                      Background="{TemplateBinding Background}"
+                      Opacity="0.7"
+                      CornerRadius="6">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="HoverStates">
+                            <VisualState x:Name="Normal"/>
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Target="SysButtonGrid.Opacity" Value="0.4"></Setter>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <TextBlock VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                               Foreground="{StaticResource SynthFurTabs}"
+                               FontSize="{TemplateBinding FontSize}"
+                               Opacity="{TemplateBinding Opacity}"
+                               TextTrimming="CharacterEllipsis"
+                               Text="{TemplateBinding Content}"/>
+                </Grid>
+            </ControlTemplate>
+            <!--UI button style template-->
+            <ControlTemplate x:Key="UIButton" TargetType="Button">
+                <Grid x:Name="SysButtonGrid"
+                      Background="{TemplateBinding Background}"
+                      Opacity="0.7"
+                      CornerRadius="6">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="HoverStates">
+                            <VisualState x:Name="Normal"/>
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Target="SysButtonGrid.Opacity" Value="0.4"></Setter>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <TextBlock VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                               Foreground="{StaticResource SynthFurSolidDark}"
+                               FontSize="{TemplateBinding FontSize}"
+                               Opacity="{TemplateBinding Opacity}"
+                               TextTrimming="CharacterEllipsis"
+                               Text="{TemplateBinding Content}"/>
+                </Grid>
+            </ControlTemplate>
+            <!--Color picker setting style template-->
+            <ControlTemplate x:Key="ColorPickerSetting" TargetType="ColorPicker">
+                <ColorPicker ColorSpectrumShape="Ring"
+                             IsAlphaSliderVisible="False"
+                             IsAlphaTextInputVisible="False"
+                             Visibility="Collapsed"
+                             Margin="0,0,0,0"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch" />
+            </ControlTemplate>
+            <!--Palette-box style template-->
+            <Style TargetType="Rectangle" x:Key="PaletteBox">
+                <Setter Property="Width" Value="50" />
+                <Setter Property="Height" Value="30" />
+                <Setter Property="Stroke" Value="{StaticResource SynthFurTabs}" />
+                <Setter Property="Margin" Value="0,0,24,0" />
+            </Style>
+            <!--Setting-label style template-->
+            <Style TargetType="TextBlock" x:Key="SettingLabel">
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="Foreground" Value="{StaticResource SynthFurButtons}" />
+                <Setter Property="Padding" Value="14,32,0,0" />
+            </Style>
+            <!--Slider setting style template-->
+            <Style x:Key="SliderSetting" TargetType="Slider">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="Padding" Value="14,0,14,0" />
+                <Setter Property="Minimum" Value="0" />
+                <Setter Property="Maximum" Value="1000" />
+            </Style>
+            <!--Vertical settings-specific radio button style template-->
+            <Style x:Key="RadioButtonSettingVerti" TargetType="RadioButton">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="0,0,0,0" />
+            </Style>
+            <!--Horizontal settings-specific radio button style template-->
+            <Style x:Key="RadioButtonSettingHori" TargetType="RadioButton">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <!--Horizontal settings-specific checkbox style template-->
+            <Style x:Key="CheckBoxSetting" TargetType="CheckBox">
+                <Setter Property="Margin" Value="16,8,14,0" />
+                <Setter Property="Content" Value="Yes/No" />
+            </Style>
+            <!--Setting-specific style template for StackPanels carrying horizontal or vertical radio buttons-->
+            <Style x:Key="RadioPanelSetting" TargetType="StackPanel">
+                <Setter Property="Width" Value="157" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Padding" Value="16,8,0,0" />
+            </Style>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

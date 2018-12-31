@@ -13,7 +13,6 @@ using namespace Windows::ApplicationModel::Core;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::Graphics::Display;
-//using namespace Windows::Graphics::Imaging;
 using namespace Windows::System::Threading;
 using namespace Windows::UI;
 using namespace Windows::UI::Core;

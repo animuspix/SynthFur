@@ -248,6 +248,14 @@ void SynthFur::MainPage::MainTexExporter(Object^ sender, TappedRoutedEventArgs^ 
 	TexExportHelper(surf, "synthFurTexture");
 }
 
+void SynthFur::MainPage::SwapPopout(Object^ sender, TappedRoutedEventArgs ^ e)
+{
+	bool collapsed = (bool)ProjOptionsPopout->Visibility;
+	ProjOptionsPopout->Visibility = (Windows::UI::Xaml::Visibility)(!collapsed); // Show/hide the pop-out options menu
+	// Constrain grid sizes to prevent overlap between the title-label and the options menu
+	OptionsPopoutCell->MinWidth = collapsed ? 220.0 : 0.0;
+}
+
 void SynthFur::MainPage::TuringFadeRateUpdate(Object^ sender, RangeBaseValueChangedEventArgs^ e)
 {
 	// Extract fractional slider value
@@ -601,13 +609,13 @@ void SynthFur::MainPage::PaletteUpdate(ColorPicker^ sender, ColorChangedEventArg
 	}
 }
 
-void SynthFur::MainPage::MeshImportHover(Object^ sender, PointerRoutedEventArgs^ e)
+void SynthFur::MainPage::FauxButtonHover(Object^ sender, PointerRoutedEventArgs^ e)
 {
 	// Select click-hint cursor
 	Window::Current->CoreWindow->PointerCursor = ref new Windows::UI::Core::CoreCursor(Windows::UI::Core::CoreCursorType::Hand, 0);
 }
 
-void SynthFur::MainPage::MeshImportLeave(Object^ sender, PointerRoutedEventArgs^ e)
+void SynthFur::MainPage::FauxButtonLeave(Object^ sender, PointerRoutedEventArgs^ e)
 {
 	// Revert to standard arrow cursor
 	Window::Current->CoreWindow->PointerCursor = ref new Windows::UI::Core::CoreCursor(Windows::UI::Core::CoreCursorType::Arrow, 0);

@@ -8,9 +8,6 @@
       <UniqueIdentifier>1beedb77-ec8d-47c3-8ad1-639d840b9e35</UniqueIdentifier>
       <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
     </Filter>
-    <Filter Include="Third Party/DirectXMesh">
-      <UniqueIdentifier>{a791d0a2-f172-4520-8c56-b7ff0f9e0f73}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />

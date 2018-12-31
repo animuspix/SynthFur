@@ -97,11 +97,9 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 	coreTitleBar->ExtendViewIntoTitleBar = true;
 
 	// Stylize caption buttons to match SynthFur's custom title bar
-	Application^ appl = Application::Current;
-	Windows::UI::Color captionColor = (Windows::UI::Color)appl->Resources->Lookup("SynthFurGreen");
 	ApplicationViewTitleBar^ appTitleBar = ApplicationView::GetForCurrentView()->TitleBar;
-	appTitleBar->ButtonBackgroundColor = captionColor;
-	appTitleBar->ButtonInactiveBackgroundColor = captionColor;
+	appTitleBar->ButtonBackgroundColor = Windows::UI::Colors::Transparent;
+	appTitleBar->ButtonInactiveBackgroundColor = Windows::UI::Colors::Transparent;
 }
 
 /// <summary>

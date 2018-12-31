@@ -13,12 +13,10 @@
             <RowDefinition Height="0.06*"
                            MinHeight="58">
             </RowDefinition>
-            <RowDefinition Height="0.00*">
-            </RowDefinition>
             <RowDefinition Height="1*">
             </RowDefinition>
         </Grid.RowDefinitions>
-        <!-- Title-bar, contains window controls + settings menu -->
+        <!--SynthFur title-bar, contains window controls + draggable space-->
         <Grid x:Name="SynthFurTitle"
               Background="{ThemeResource SynthFurClearAcrylic}"
               BorderThickness="0"
@@ -26,57 +24,80 @@
               Grid.Row="0"
               Height="58">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto">
+                <ColumnDefinition x:Name="OptionsPopoutCell"
+                                  Width="0.3*">
                 </ColumnDefinition>
-                <ColumnDefinition>
+                <ColumnDefinition x:Name="TitleLabelCell"
+
+                                  Width="0.3*">
+                </ColumnDefinition>
+                <ColumnDefinition x:Name="PaddingCell"
+                                  Width="0.3*">
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <!-- Setting menu here... -->
-            <!-- Faux button for iteration, should replace with <Button> control when possible -->
-            <Border BorderBrush="Transparent"
-                    BorderThickness="1"
+            <!-- Per-page title label -->
+            <Grid Background="White"
+                  Opacity="0.7"
+                  MaxWidth="216"
+                  Height="35"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Stretch"
+                  Grid.Column="1"
+                  CornerRadius="6">
+                <TextBlock x:Name="TitleLabel"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="{StaticResource SynthFurTabs}"
+                           Opacity="1.0"
+                           TextTrimming="CharacterEllipsis"
+                           Text="Welcome"
+                           Margin="10,0,10,0"/>
+            </Grid>
+        </Grid>
+
+        <!--Options icon & pop-out menu-->
+        <StackPanel Orientation="Horizontal">
+            <!--Options icon-->
+            <Button Template="{StaticResource SystemButton}"
                     Width="36"
                     Height="36"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     Grid.Column="0"
-                    CornerRadius="6"
-                    Margin="16,0,0,0">
-                <Border.Background>
-                    <ImageBrush ImageSource="/Assets/TabIco.png"
-                                Opacity="0.7">
-                    </ImageBrush>
-                </Border.Background>
-            </Border>
-            <!-- Title label for the current project -->
-            <Grid Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.94*">
-                    </ColumnDefinition>
-                    <ColumnDefinition>
-                    </ColumnDefinition>
-                    <ColumnDefinition>
-                    </ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid Background="White"
-                  Opacity="0.7"
-                  Width="216"
-                  Height="35"
-                  VerticalAlignment="Center"
-                  Grid.Column="1"
-                  CornerRadius="6">
-                    <TextBlock x:Name="TitleLabel"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Foreground="{StaticResource SynthFurTabs}"
-                               Opacity="1.0"
-                               TextTrimming="CharacterEllipsis"
-                               Text="Welcome"
-                               Margin="10,0,0,0"/>
-                </Grid>
+                    Margin="16,0,0,0"
+                    ToolTipService.ToolTip="Project Options"
+                    Tapped="SwapPopout"
+                    PointerEntered="FauxButtonHover"
+                    PointerExited="FauxButtonLeave">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Assets/TabIco.png"></ImageBrush>
+                </Button.Background>
+            </Button>
+            <!--Project options pop-out-->
+            <StackPanel x:Name="ProjOptionsPopout"
+                        Orientation="Horizontal"
+                        Visibility="Collapsed">
+                <Button Content="File" Template="{StaticResource SystemButton}"
+                        Background="White"
+                        PointerEntered="FauxButtonHover"
+                        PointerExited="FauxButtonLeave"
+                        Margin="2.5"
+                        ToolTipService.ToolTip="Open, save, and create projects"
+                        Width="50"
+                        Height="35">
+                </Button>
+                <Button Content="Preferences" Template="{StaticResource SystemButton}"
+                        Background="White"
+                        PointerEntered="FauxButtonHover"
+                        PointerExited="FauxButtonLeave"
+                        Margin="2.5"
+                        ToolTipService.ToolTip="Edit SynthFur preferences"
+                        Width="95"
+                        Height="35">
+                </Button>
+            </StackPanel>
+        </StackPanel>
 
-            </Grid>
-        </Grid>
         <!-- App body landing content -->
         <Grid x:Name="BodyLanding"
               Background="{StaticResource SynthFurSolidDark}"
@@ -84,72 +105,33 @@
               BorderThickness="0"
               Visibility="Visible"
               Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition>
-                </ColumnDefinition>
-                <ColumnDefinition>
-                </ColumnDefinition>
-                <ColumnDefinition>
-                </ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition>
-                </RowDefinition>
-                <RowDefinition>
-                </RowDefinition>
-                <RowDefinition>
-                </RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid x:Name="Intro"
-                  Grid.Row="1"
-                  Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1.6*">
-                    </RowDefinition>
-                    <RowDefinition>
-                    </RowDefinition>
-                </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Vertical"
+                        Width="460"
+                        Height="300">
                 <TextBlock Grid.Row="0"
                            HorizontalAlignment="Center"
                            TextAlignment="Center"
                            FontSize="24"
+                           TextWrapping="Wrap"
                            Foreground="{StaticResource SynthFurSolid}"
-                           Text="Hi, welcome to SynthFur!&#10;We don't support actual fur rendering just&#10;yet, but you can still visualize our patterns&#10;over a model and export the texture to use&#10; with other platforms like Maya or 3ds Max." Margin="0,28,0,0" />
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition>
-                        </ColumnDefinition>
-                        <ColumnDefinition Width="1.5*">
-                        </ColumnDefinition>
-                        <ColumnDefinition>
-                        </ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition>
-                        </RowDefinition>
-                        <RowDefinition Height="2.5*">
-                        </RowDefinition>
-                        <RowDefinition>
-                        </RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid x:Name="MeshImport"
-                          Grid.Row="1"
-                          Grid.Column="1"
-                          CornerRadius="6"
-                          Background="{StaticResource SynthFurButtons}"
-                          Tapped="MeshImporter"
-                          PointerEntered="MeshImportHover"
-                          PointerExited="MeshImportLeave">
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            FontSize="22"
-                            Foreground="{StaticResource SynthFurSolidDark}"
-                            Text="Import Mesh">
-                        </TextBlock>
-                    </Grid>
-                </Grid>
-            </Grid>
+                           Text="Hi, welcome to SynthFur!&#10;We don't support actual fur rendering just&#10;yet, but you can still visualize our patterns&#10;over a model and export the texture to use&#10; with other platforms like Maya or 3ds Max."
+                           Margin="0,14,0,14" />
+                <Button x:Name="MeshImport"
+                        Content="Import Mesh"
+                        Width="200"
+                        Height="60"
+                        Template="{StaticResource UIButton}"
+                        Background="{StaticResource SynthFurButtons}"
+                        Tapped="MeshImporter"
+                        PointerEntered="FauxButtonHover"
+                        PointerExited="FauxButtonLeave"
+                        HorizontalAlignment="Center"
+                        FontSize="22"
+                        Margin="0,6,0,0">
+                </Button>
+            </StackPanel>
         </Grid>
 
         <!-- App body main content -->
@@ -177,502 +159,299 @@
                         <!--Just using Gray-Scott + naive normal shading for now, might add support for other models later-->
                         <TextBlock x:Name="PaletteTitle"
                                    Text="Shading Palette"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,14,0,0"
-                                   FontSize="24"></TextBlock>
+                                   Style="{StaticResource SettingLabel}"
+                                   Padding="14,14,0,0"></TextBlock>
                         <ColorPicker x:Name="PalettePicker0"
-                                     ColorSpectrumShape="Ring"
-                                     IsAlphaSliderVisible="False"
-                                     IsAlphaTextInputVisible="False"
-                                     Visibility="Collapsed"
-                                     Margin="0,0,0,0"
-                                     HorizontalAlignment="Stretch"
-                                     VerticalAlignment="Stretch"
+                                     Template="{StaticResource ColorPickerSetting}"
                                      ColorChanged="PaletteUpdate"/>
                         <ColorPicker x:Name="PalettePicker1"
-                                     ColorSpectrumShape="Ring"
-                                     IsAlphaSliderVisible="False"
-                                     IsAlphaTextInputVisible="False"
-                                     Visibility="Collapsed"
-                                     Margin="0,0,0,0"
-                                     HorizontalAlignment="Stretch"
-                                     VerticalAlignment="Stretch"
+                                     Template="{StaticResource ColorPickerSetting}"
                                      ColorChanged="PaletteUpdate"/>
                         <ColorPicker x:Name="PalettePicker2"
-                                     ColorSpectrumShape="Ring"
-                                     IsAlphaSliderVisible="False"
-                                     IsAlphaTextInputVisible="False"
-                                     Visibility="Collapsed"
-                                     Margin="0,0,0,0"
-                                     HorizontalAlignment="Stretch"
-                                     VerticalAlignment="Stretch"
+                                     Template="{StaticResource ColorPickerSetting}"
                                      ColorChanged="PaletteUpdate"/>
                         <StackPanel x:Name="PalettePanel"
                                     Padding="14,8,14,0"
                                     Orientation="Horizontal">
                             <Rectangle x:Name="Palette0"
-                                       Width="50"
-                                       Height="30"
-                                       Stroke="{StaticResource SynthFurTabs}"
-                                       Margin="0,0,24,0"
+                                       Style="{StaticResource PaletteBox}"
                                        Tapped="PaletteEdit">
                                 <Rectangle.Fill>
-                                    <SolidColorBrush Color="{x:Bind PalettePicker0.Color, Mode=OneWay}"/>
+                                    <SolidColorBrush Color="{x:Bind PalettePicker0.Color, Mode=OneWay}"></SolidColorBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
                             <Rectangle x:Name="Palette1"
-                                       Width="50"
-                                       Height="30"
-                                       Stroke="{StaticResource SynthFurTabs}"
-                                       Margin="0,0,24,0"
+                                       Style="{StaticResource PaletteBox}"
                                        Tapped="PaletteEdit">
                                 <Rectangle.Fill>
-                                    <SolidColorBrush Color="{x:Bind PalettePicker1.Color, Mode=OneWay}"/>
+                                    <SolidColorBrush Color="{x:Bind PalettePicker1.Color, Mode=OneWay}"></SolidColorBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
                             <Rectangle x:Name="Palette2"
-                                       Width="50"
-                                       Height="30"
-                                       Stroke="{StaticResource SynthFurTabs}"
+                                       Style="{StaticResource PaletteBox}"
                                        Tapped="PaletteEdit">
                                 <Rectangle.Fill>
-                                    <SolidColorBrush Color="{x:Bind PalettePicker2.Color, Mode=OneWay}"/>
+                                    <SolidColorBrush Color="{x:Bind PalettePicker2.Color, Mode=OneWay}"></SolidColorBrush>
                                 </Rectangle.Fill>
                             </Rectangle>
                         </StackPanel>
                         <!--Basic palette settings-->
                         <TextBlock Text="Enable/disable basic palette colors"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
-                        <StackPanel Width="157"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Stretch"
-                                    Padding="16,8,0,0"
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
+                        <StackPanel Style="{StaticResource RadioPanelSetting}"
                                     Orientation="Vertical">
                             <RadioButton x:Name="BothPalettes"
                                          Content="Use both colors"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
-                                         Margin="0"
+                                         Style="{StaticResource RadioButtonSettingVerti}"
                                          Tapped="EnableBothPalettes"></RadioButton>
                             <RadioButton x:Name="Palette0Only"
                                          Content="First color only"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
-                                         Margin="0"
+                                         Style="{StaticResource RadioButtonSettingVerti}"
                                          Tapped="EnablePaletteZero"></RadioButton>
                             <RadioButton x:Name="Palette1Only"
                                          Content="Second color only"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
-                                         Margin="0"
+                                         Style="{StaticResource RadioButtonSettingVerti}"
                                          Tapped="EnablePaletteOne"></RadioButton>
                         </StackPanel>
                         <!--Axis selection for normal shading-->
                         <TextBlock Text="Base gradient direction"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
-                        <StackPanel Width="157"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Stretch"
-                                    Padding="16,8,0,0"
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
+                        <StackPanel Style="{StaticResource RadioPanelSetting}"
                                     Orientation="Horizontal">
                             <RadioButton x:Name="ShadeAxisX"
                                          Content="X"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
+                                         Style="{StaticResource RadioButtonSettingHori}"
                                          Margin="0,0,0,0"
                                          Tapped="AxisUpdateX"></RadioButton>
                             <RadioButton x:Name="ShadeAxisY"
                                          Content="Y"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
+                                         Style="{StaticResource RadioButtonSettingHori}"
                                          Margin="-70"
                                          Tapped="AxisUpdateY"></RadioButton>
                             <RadioButton x:Name="ShadeAxisZ"
                                          Content="Z"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
+                                         Style="{StaticResource RadioButtonSettingHori}"
                                          Margin="-20"
                                          Tapped="AxisUpdateZ"></RadioButton>
                         </StackPanel>
                         <!--Axis selection for Turing shading-->
                         <TextBlock Text="Pattern gradient direction"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
-                        <StackPanel Width="157"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Stretch"
-                                    Padding="16,8,0,0"
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
+                        <StackPanel Style="{StaticResource RadioPanelSetting}"
                                     Orientation="Horizontal">
                             <RadioButton x:Name="ShadeAxisXTuring"
                                          Content="X"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
+                                         Style="{StaticResource RadioButtonSettingHori}"
                                          Margin="0,0,0,0"
                                          Tapped="AxisUpdateXTuring"></RadioButton>
                             <RadioButton x:Name="ShadeAxisYTuring"
                                          Content="Y"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
+                                         Style="{StaticResource RadioButtonSettingHori}"
                                          Margin="-70"
                                          Tapped="AxisUpdateYTuring"></RadioButton>
                             <RadioButton x:Name="ShadeAxisZTuring"
                                          Content="Z"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
+                                         Style="{StaticResource RadioButtonSettingHori}"
                                          Margin="-20"
                                          Tapped="AxisUpdateZTuring"></RadioButton>
                         </StackPanel>
                         <!--Function selection for Turing->surface projection-->
                         <TextBlock Text="Pattern-to-surface projection function"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
-                        <StackPanel Width="157"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Stretch"
-                                    Padding="16,8,0,0"
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
+                        <StackPanel Style="{StaticResource RadioPanelSetting}"
                                     Orientation="Vertical">
                             <RadioButton x:Name="ProjSurfaceUVs"
                                          Content="Surface UVs"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
-                                         Margin="0"
+                                         Style="{StaticResource RadioButtonSettingVerti}"
                                          Tapped="ProjUpdateSurfUVs"></RadioButton>
                             <RadioButton x:Name="ProjTriplanarMapping"
                                          Content="Triplanar mapping"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
-                                         Margin="0"
+                                         Style="{StaticResource RadioButtonSettingVerti}"
                                          Tapped="ProjUpdateTriplanar"></RadioButton>
                             <RadioButton x:Name="ProjPlanarMapping"
                                          Content="Flattened planar mapping"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
-                                         Margin="0"
+                                         Style="{StaticResource RadioButtonSettingVerti}"
                                          Tapped="ProjUpdateFlatPlanar"></RadioButton>
                         </StackPanel>
                         <!--Small switch controlling whether or not to reset synthesized patterns-->
                         <TextBlock Text="Restart pattern synthesis?"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
                         <CheckBox x:Name="PatternReset"
-                                  Margin="16,8,14,0"
-                                  Content="Yes/No"
+                                  Style="{StaticResource CheckBoxSetting}"
                                   Checked="TuringPatternReset" />
                         <!--Small switch controlling whether or not to reset reaction/diffusion settings-->
                         <TextBlock Text="Reset reaction/diffusion settings?"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
                         <CheckBox x:Name="ParamReset"
-                                  Margin="16,8,14,0"
-                                  Content="Yes/No"
+                                  Style="{StaticResource CheckBoxSetting}"
                                   Checked="TuringParamReset" />
                         <!--Whether to pause pattern simulation-->
                         <TextBlock Text="Pause pattern synthesis?"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
                         <CheckBox x:Name="PausePatterns"
-                                  Margin="16,8,14,0"
-                                  Content="Yes/No"
+                                  Style="{StaticResource CheckBoxSetting}"
                                   Checked="SwitchPatternsPaused"
                                   Unchecked="SwitchPatternsPaused"/>
                         <!--Whether to pause pattern simulation-->
                         <TextBlock Text="Pause all GPU work for SynthFur?"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24">
+                                   Style="{StaticResource SettingLabel}">
                             <ToolTipService.ToolTip>
                                 <ToolTip Content="This makes editing impossible, but can be useful if you want to play a game or work on a model without exporting work and closing SynthFur beforehand."
                                          Placement="Top"></ToolTip>
                             </ToolTipService.ToolTip>
                         </TextBlock>
                         <CheckBox x:Name="PauseGPU"
-                                  Margin="16,8,14,0"
-                                  Content="Yes/No"
+                                  Style="{StaticResource CheckBoxSetting}"
                                   Checked="SwitchGPUWork"
                                   Unchecked="SwitchGPUWork">
                         </CheckBox>
                         <!--Whether to flip the base gradient (palette0/palette1)-->
                         <TextBlock Text="Flip base gradient direction?"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
                         <CheckBox x:Name="BaseGradientFlip"
-                                  Margin="16,8,14,0"
-                                  Content="Yes/No"
+                                  Style="{StaticResource CheckBoxSetting}"
                                   Checked="FlipBaseShadingDirection"
                                   Unchecked="FlipBaseShadingDirection" />
                         <!--Whether to flip the pattern gradient-->
                         <TextBlock Text="Flip pattern gradient direction?"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
                         <CheckBox x:Name="PatternGradientFlip"
-                                  Margin="16,8,14,0"
-                                  Content="Yes/No"
+                                  Style="{StaticResource CheckBoxSetting}"
                                   Checked="FlipTuringShadingDirection"
                                   Unchecked="FlipTuringShadingDirection"/>
                         <!--Whether to hide Turing patterns-->
                         <TextBlock Text="Hide Turing patterns?"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
                         <CheckBox x:Name="TuringPatternSwitch"
-                                  Margin="16,8,14,0"
-                                  Content="Yes/No"
+                                  Style="{StaticResource CheckBoxSetting}"
                                   Checked="SwitchTuringPatterns"
                                   Unchecked="SwitchTuringPatterns"/>
                         <!--Whether to clamp SynthFur colors-->
                         <TextBlock Text="Clamp surface shading to [0...1]?"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
                         <CheckBox x:Name="ClampShading"
-                                  Margin="16,8,14,0"
-                                  Content="Yes/No"
+                                  Style="{StaticResource CheckBoxSetting}"
                                   Checked="SwitchClampShading"
                                   Unchecked="SwitchClampShading"/>
                         <!--Operation selection for pattern blending-->
                         <TextBlock Text="Blending operation for Turing patterns"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
-                        <StackPanel Width="157"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Stretch"
-                                    Padding="16,8,0,0"
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
+                        <StackPanel Style="{StaticResource RadioPanelSetting}"
                                     Orientation="Vertical">
                             <RadioButton x:Name="BlendOpMul"
                                          Content="Multiply"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
-                                         Margin="0"
+                                         Style="{StaticResource RadioButtonSettingVerti}"
                                          Tapped="BlendUpdateMul"></RadioButton>
                             <RadioButton x:Name="BlendOpDiv"
                                          Content="Divide"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
-                                         Margin="0"
+                                         Style="{StaticResource RadioButtonSettingVerti}"
                                          Tapped="BlendUpdateDiv"></RadioButton>
                             <RadioButton x:Name="BlendOpAdd"
                                          Content="Add"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
-                                         Margin="0"
+                                         Style="{StaticResource RadioButtonSettingVerti}"
                                          Tapped="BlendUpdateAdd"></RadioButton>
                             <RadioButton x:Name="BlendOpSub"
                                          Content="Subtract"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Center"
-                                         Margin="0"
+                                         Style="{StaticResource RadioButtonSettingVerti}"
                                          Tapped="BlendUpdateSub"></RadioButton>
                         </StackPanel>
+
                         <!--Base gradient towards the basic shading axis-->
                         <TextBlock Text="Base palette gradient"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
                         <Slider x:Name="BaseGradSlider6"
-                                Padding="14,8,14,0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Minimum="0"
-                                Maximum="1000"
+                                Style="{StaticResource SliderSetting}"
                                 ValueChanged="BaseFadeRateUpdate"></Slider>
+
                         <!--Turing gradient towards the pattern axis-->
                         <TextBlock Text="Turing pattern gradient"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
                         <Slider x:Name="PatternGradSlider0"
-                                Padding="14,8,14,0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Minimum="0"
-                                Maximum="1000"
+                                Style="{StaticResource SliderSetting}"
                                 ValueChanged="TuringFadeRateUpdate"></Slider>
+
                         <!--White noise intensity, used to modulate reaction probabilities for Turing patterns-->
                         <TextBlock Text="Turing reactivity variance"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
                         <Slider x:Name="RandWeightSlider1"
-                                Padding="14,0,14,0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Minimum="0"
-                                Maximum="1000"
+                                Style="{StaticResource SliderSetting}"
                                 ValueChanged="TuringReactivityUpdate"></Slider>
+
                         <!--Diffusion rate for the zeroth chemical in the reaction-->
-                        <TextBlock Foreground="{StaticResource SynthFurButtons}"
-                                   TextWrapping="Wrap"
-                                   Padding="14,32,0,0"
-                                   FontSize="24">Diffusion rate for chemical <Italic>u</Italic></TextBlock>
+                        <TextBlock Style="{StaticResource SettingLabel}">Diffusion rate for chemical <Italic>u</Italic></TextBlock>
                         <Slider x:Name="TuringDiffRate0Slider2"
-                                Padding="14,0,14,0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Minimum="0"
-                                Maximum="1000"
+                                Style="{StaticResource SliderSetting}"
                                 ValueChanged="TuringDiffusionUUpdate"></Slider>
+
                         <!--Supply rate for the first chemical in the reaction-->
-                        <TextBlock Foreground="{StaticResource SynthFurButtons}"
-                                   TextWrapping="Wrap"
-                                   Padding="14,32,0,0"
-                                   FontSize="24">Supply rate for chemical <Italic>u</Italic></TextBlock>
+                        <TextBlock Style="{StaticResource SettingLabel}">Supply rate for chemical <Italic>u</Italic></TextBlock>
                         <Slider x:Name="TuringSupplyRateSlider5"
-                                Padding="14,0,14,0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Minimum="0"
-                                Maximum="1000"
+                                Style="{StaticResource SliderSetting}"
                                 ValueChanged="TuringSupplyRateUpdate"></Slider>
+
                         <!--Diffusion rate for the first chemical in the reaction-->
-                        <TextBlock Foreground="{StaticResource SynthFurButtons}"
-                                   TextWrapping="Wrap"
-                                   Padding="14,32,0,0"
-                                   FontSize="24">Diffusion rate for chemical <Italic>v</Italic></TextBlock>
+                        <TextBlock Style="{StaticResource SettingLabel}">Diffusion rate for chemical <Italic>v</Italic></TextBlock>
                         <Slider x:Name="TuringDiffRate1Slider3"
-                                Padding="14,0,14,0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Minimum="0"
-                                Maximum="1000"
+                                Style="{StaticResource SliderSetting}"
                                 ValueChanged="TuringDiffusionVUpdate"></Slider>
+
                         <!--Conversion rate between secondary chemicals-->
-                        <TextBlock Foreground="{StaticResource SynthFurButtons}"
-                                   TextWrapping="Wrap"
-                                   Padding="14,32,0,0"
-                                   FontSize="24">Conversion rate between secondary chemicals <Italic>V</Italic> and <Italic>P</Italic></TextBlock>
+                        <TextBlock Style="{StaticResource SettingLabel}">Conversion rate between secondary chemicals <Italic>V</Italic> and <Italic>P</Italic></TextBlock>
                         <Slider x:Name="TuringConvRateSlider4"
-                                Padding="14,0,14,0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Minimum="0"
-                                Maximum="1000"
+                                Style="{StaticResource SliderSetting}"
                                 ValueChanged="TuringConvRateUpdate"></Slider>
+
                         <!--Weights for each element in the Turing integration kernel-->
                         <TextBlock Text="Weights for pixels in the Turing sampling kernel"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
                         <StackPanel Orientation="Horizontal">
                             <Slider x:Name="TuringKrnUpperLeft"
-                                    Padding="14,0,14,0"
                                     Width="148"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Minimum="0"
-                                    Maximum="1000"
+                                    Style="{StaticResource SliderSetting}"
                                     ValueChanged="TuringKrnUpperLeftUpdate"></Slider>
                             <Slider x:Name="TuringKrnUpperMid"
-                                    Padding="14,0,14,0"
                                     Width="148"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Minimum="0"
-                                    Maximum="1000"
+                                    Style="{StaticResource SliderSetting}"
                                     ValueChanged="TuringKrnUpperMidUpdate"></Slider>
                             <Slider x:Name="TuringKrnUpperRight"
-                                    Padding="14,0,14,0"
                                     Width="148"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Minimum="0"
-                                    Maximum="1000"
+                                    Style="{StaticResource SliderSetting}"
                                     ValueChanged="TuringKrnUpperRightUpdate"></Slider>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Slider x:Name="TuringKrnMidLeft"
-                                    Padding="14,0,14,0"
                                     Width="148"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Minimum="0"
-                                    Maximum="1000"
+                                    Style="{StaticResource SliderSetting}"
                                     ValueChanged="TuringKrnMidLeftUpdate"></Slider>
                             <Slider x:Name="TuringKrnMidMid"
-                                    Padding="14,0,14,0"
                                     Width="148"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Minimum="0"
-                                    Maximum="1000"
+                                    Style="{StaticResource SliderSetting}"
                                     ValueChanged="TuringKrnMidMidUpdate"></Slider>
                             <Slider x:Name="TuringKrnMidRight"
-                                    Padding="14,0,14,0"
                                     Width="148"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Minimum="0"
-                                    Maximum="1000"
+                                    Style="{StaticResource SliderSetting}"
                                     ValueChanged="TuringKrnMidRightUpdate"></Slider>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Slider x:Name="TuringKrnLowerLeft"
-                                    Padding="14,0,14,0"
                                     Width="148"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Minimum="0"
-                                    Maximum="1000"
+                                    Style="{StaticResource SliderSetting}"
                                     ValueChanged="TuringKrnLowerLeftUpdate"></Slider>
                             <Slider x:Name="TuringKrnLowerMid"
-                                    Padding="14,0,14,0"
                                     Width="148"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Minimum="0"
-                                    Maximum="1000"
+                                    Style="{StaticResource SliderSetting}"
                                     ValueChanged="TuringKrnLowerMidUpdate"></Slider>
                             <Slider x:Name="TuringKrnLowerRight"
-                                    Padding="14,0,14,0"
                                     Width="148"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Minimum="0"
-                                    Maximum="1000"
+                                    Style="{StaticResource SliderSetting}"
                                     ValueChanged="TuringKrnLowerRightUpdate"></Slider>
                         </StackPanel>
                         <!--Reaction rate not defined here, but derivable from delta-time between frames-->
                         <!--View lighting intensity-->
                         <TextBlock Text="Surface lighting intensity (view only, unrelated to texture synthesis)"
-                                   TextWrapping="Wrap"
-                                   Foreground="{StaticResource SynthFurButtons}"
-                                   Padding="14,32,0,0"
-                                   FontSize="24"></TextBlock>
+                                   Style="{StaticResource SettingLabel}"></TextBlock>
                         <Slider x:Name="LiIntensitySlider7"
-                                Padding="14,0,14,0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Minimum="0"
-                                Maximum="1000"
+                                Style="{StaticResource SliderSetting}"
                                 ValueChanged="LiIntensityUpdate"></Slider>
                         <!--Reaction rate not defined here, but derivable from delta-time between frames-->
                     </StackPanel>
